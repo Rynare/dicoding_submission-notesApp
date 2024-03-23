@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Note Apps</title>
+</head>
+
+<body>
+    <div id="content">
+        <note-header></note-header>
+        <!-- Custom note extends div Element-->
+        <div is="my-notes"></div>
+        <form action="">
+            <note-text-input>
+
+            </note-text-input>
+            <note-text-input>
+
+            </note-text-input>
+            <button type="reset">Batal</button>
+            <button type="submit">Simpan</button>
+        </form>
+    </div>
+    <script type="module">
+        import { notesData } from './notes-data.js'
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('div[is=my-notes]').setAttribute('note-data', JSON.stringify(notesData))
+        })
+    </script>
+    <script type="module" src="./main.js"></script>
+</body>
+
+</html>
