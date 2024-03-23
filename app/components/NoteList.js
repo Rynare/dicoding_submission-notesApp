@@ -10,6 +10,15 @@ export class NoteList extends HTMLElement {
             case 'selected-note-item':
                 break
             case 'active-note-item':
+                const allActive = this.querySelectorAll('.is-active')
+                if (allActive != null) {
+                    for (const active of allActive) {
+                        active.classList.remove('is-active')
+                    }
+                }
+                const activeNow = this.querySelector(newValue)
+                console.log(activeNow)
+                activeNow.classList.add('is-active')
                 break
             default:
                 break;
