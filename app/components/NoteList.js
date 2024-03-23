@@ -3,7 +3,6 @@ export class NoteList extends HTMLElement {
 
     constructor() {
         super()
-        alert('gg')
     }
 
     attributeChangedCallback(name, oldValue, newValue) {

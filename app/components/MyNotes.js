@@ -2,8 +2,7 @@ import { notesData } from "../../notes-data.js";
 
 const template = document.createElement('template')
 template.innerHTML = `
-<note-list>
-</note-list>
+<note-list></note-list>
 <note-detail></note-detail>
 `;
 
@@ -21,6 +20,12 @@ export class MyNotes extends HTMLDivElement {
     render() {
         const templateNode = template.content.cloneNode('true')
         this.appendChild(templateNode)
+        const note_list = this.querySelector('note-list')
+        notesData.forEach(obj => {
+            const note_item = document.createElement('note-item')
+            note_item.setAttribute(`note-item-id`, obj['id'])
+            note_list.appendChild(note_item)
+        })
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
