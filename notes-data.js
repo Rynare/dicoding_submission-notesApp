@@ -105,3 +105,7 @@ export const notesData = [
         archived: false,
     },
 ];
+
+export function findNoteById(id) {
+    return notesData.find(note => note.id === id);
+}
