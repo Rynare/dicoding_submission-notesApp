@@ -138,7 +138,12 @@ export function addNote(newNote) {
     return note;
 }
 
-export function getSortedByCreateAtAsc() {
+export function getSortedByCreateAtDesc() {
     const sorted = [...notesData]
     return sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+}
+
+export function getSortedByCreateAtAsc() {
+    const sorted = [...notesData];
+    return sorted.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 }

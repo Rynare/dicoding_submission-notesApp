@@ -1,6 +1,6 @@
-import { notesData } from "../../notes-data.js";
+import { getSortedByCreateAtAsc, getSortedByCreateAtDesc, notesData } from "../../notes-data.js";
 export class NoteList extends HTMLElement {
-    static observedAttributes = ["selected-note-item", "active-note-item", 'refresh'];
+    static observedAttributes = ["selected-note-item", "active-note-item", 'refresh', "sort-by"];
 
     constructor() {
         super()
@@ -13,7 +13,21 @@ export class NoteList extends HTMLElement {
 
 
     render() {
-        notesData.forEach(obj => {
+        this.innerHTML = ''
+        let data
+        switch (this.getAttribute('sort-by')) {
+            case 'terbaru':
+                data = getSortedByCreateAtDesc()
+                break;
+            case 'terlama':
+                data = getSortedByCreateAtAsc()
+                break;
+            default:
+                data = notesData;
+                break;
+        }
+
+        data.forEach(obj => {
             const note_item = document.createElement('note-item')
             note_item.setAttribute(`note-item-id`, obj['id'])
             this.appendChild(note_item)
@@ -24,9 +38,11 @@ export class NoteList extends HTMLElement {
         switch (name) {
             case 'selected-note-item':
                 break
+            case 'sort-by':
+                this.render()
+                break
             case 'refresh':
                 if (newValue == 'true') {
-                    this.innerHTML = ''
                     this.render()
                     this.removeAttribute(name)
                 }
