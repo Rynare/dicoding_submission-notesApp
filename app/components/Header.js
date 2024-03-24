@@ -9,6 +9,7 @@ export class NoteHeader extends HTMLElement {
 
     render() {
         this.appendChild(this.makeTitle('Notes App'));
+        this.appendChild(this.makeNewNoteBtn())
     }
 
     makeTitle(title) {
@@ -16,6 +17,14 @@ export class NoteHeader extends HTMLElement {
         h3.innerText = title;
         return h3;
     }
+
+    makeNewNoteBtn() {
+        const btn = document.createElement('button')
+        btn.innerHTML = `
+        <i class="bi bi-journal-bookmark-fill"></i>
+        <span>Baru</span>
+        `;
+        return btn
+    }
 }
 
-customElements.define('note-header', NoteHeader);

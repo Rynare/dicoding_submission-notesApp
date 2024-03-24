@@ -27,7 +27,9 @@ body {
 
 #content {
     display: grid;
-    grid-template-areas: 'note-header';
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 10px;
 }
 
 note-header {
@@ -36,27 +38,48 @@ note-header {
     padding: 0 10px;
     position: sticky;
     top: 0;
-    background-color: var(---bg-body-light);
-    box-shadow: 0px 0px 10px 2px grey;
-    margin-bottom: 10px;
+    background-color: white;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+note-header button {
+    color: white;
+    background-color: var(---bg-header-light);
+    height: fit-content;
+    border: none;
+    outline: none;
+    padding: 5px 7px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 4px;
+}
+
+note-header button i {
+    font-weight: bold;
+    font-size: large;
 }
 
 [is=my-notes] {
     overflow: hidden;
-    margin: 10px 18px;
+    margin: 0 10px;
 }
 
 note-item div {
-    padding: 10px 15px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     row-gap: 10px;
     background-color: white;
     border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
     margin-bottom: 10px;
 }
 
@@ -81,11 +104,59 @@ note-item .note-item-createAt {
     color: var(---placeholder-search-light);
 }
 
-note-item.is-active .note-item-createAt {
+note-item:is( :hover) .note-item-createAt {
     text-align: end;
     color: white;
 }
 
-note-item.is-active div {
+note-item:is(:hover) div {
     background-color: var(---bg-header-light);
+}
+
+note-detail {
+    position: fixed;
+    z-index: -9999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+note-detail>div {
+    margin: 10px;
+}
+
+note-detail header {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    color: var(---bg-header-light);
+    justify-content: space-between;
+}
+
+note-detail input {
+    outline: none;
+    border: none;
+    font-weight: bold;
+    padding: 5px 0;
+    border-bottom: 1px solid black;
+}
+
+note-detail #detail-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    flex-grow: 1;
+    padding: 0 10px;
+}
+
+note-detail textarea {
+    height: 100%;
+    outline: none;
+    border: none;
 }

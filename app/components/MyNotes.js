@@ -48,5 +48,3 @@ export class MyNotes extends HTMLDivElement {
         notesData.push(newObject)
     }
 }
-
-customElements.define('my-notes', MyNotes, { extends: 'div' })

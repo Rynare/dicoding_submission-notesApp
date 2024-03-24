@@ -2,11 +2,15 @@ import { findNoteById } from '../../notes-data.js'
 
 const template = document.createElement('template')
 template.innerHTML = `
-<header></header>
-<div>
-<input id="detail-title">
-<textarea id="detail-body">
-</textarea>
+<header>
+    <i class="bi bi-arrow-left back-btn"></i>
+    <div>
+        <i class="bi bi-floppy-fill"></i>
+    </div>
+</header>
+<div id="detail-container">
+    <input id="detail-title">
+    <textarea id="detail-body"></textarea>
 </div>
 `
 
@@ -22,6 +26,7 @@ export class NoteDetail extends HTMLElement {
 
     connectedCallback() {
         this.render()
+        this.runBackEvent()
     }
 
 
@@ -36,13 +41,26 @@ export class NoteDetail extends HTMLElement {
     attributeChangedCallback(name, oldValue, newValue) {
         switch (name) {
             case 'note-id':
+                newValue = newValue.trim();
                 const data = findNoteById(newValue)
-                this.render(data.title, data.body)
+                if ((newValue != '' || newValue != null || newValue != undefined) && data) {
+                    this.render(data.title, data.body)
+                    this.style.zIndex = 9999
+                } else {
+                    this.render()
+                    this.style.zIndex = 9999
+                }
                 break
             default:
                 break;
         }
     }
-}
 
-customElements.define('note-detail', NoteDetail)
+    runBackEvent() {
+        const backBtn = this.querySelector('.back-btn')
+        backBtn.addEventListener('click', () => {
+            this.setAttribute('note-id', '')
+            this.style.zIndex = -9999
+        })
+    }
+}

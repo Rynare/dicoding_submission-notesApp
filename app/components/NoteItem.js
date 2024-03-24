@@ -43,5 +43,3 @@ export class NoteItem extends HTMLElement {
         })
     }
 }
-
-customElements.define('note-item', NoteItem)

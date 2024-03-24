@@ -17,7 +17,6 @@ export class NoteList extends HTMLElement {
                     }
                 }
                 const activeNow = this.querySelector(newValue)
-                console.log(activeNow)
                 activeNow.classList.add('is-active')
                 break
             default:
@@ -25,5 +24,3 @@ export class NoteList extends HTMLElement {
         }
     }
 }
-
-customElements.define('note-list', NoteList)
