@@ -48,10 +48,10 @@ export class NoteDetail extends HTMLElement {
                 const data = findNoteById(newValue)
                 if ((newValue != '' || newValue != null || newValue != undefined) && data) {
                     this.render(data.title, data.body)
-                    this.style.zIndex = 9999
+                    this.classList.add('active')
                 } else {
                     this.render()
-                    this.style.zIndex = 9999
+                    this.classList.add('active')
                 }
                 break
             default:
@@ -64,7 +64,7 @@ export class NoteDetail extends HTMLElement {
         backBtn.addEventListener('click', () => {
             this.setAttribute('note-id', '')
             document.querySelector('note-list').setAttribute('refresh', true)
-            this.style.zIndex = -9999
+            this.classList.remove('active')
         })
     }
 
@@ -82,6 +82,9 @@ export class NoteDetail extends HTMLElement {
                 addNote(data)
             } else {
                 updateNoteById(this.getAttribute('note-id'), data)
+            }
+            if (window.innerWidth >= 768) {
+                document.querySelector('note-list').setAttribute('refresh', true)
             }
         })
     }

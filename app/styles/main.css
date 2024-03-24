@@ -75,6 +75,7 @@ note-header sort-note {
 
 note-header sort-note {
     display: block;
+    height: fit-content;
 }
 
 note-header button i {
@@ -141,6 +142,10 @@ note-detail {
     background-color: #fff;
     display: flex;
     flex-direction: column;
+}
+
+note-detail.active {
+    z-index: 9999;
 }
 
 note-detail form {

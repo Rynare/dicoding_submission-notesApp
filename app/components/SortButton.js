@@ -24,7 +24,7 @@ template.innerHTML = `
         .sort-item {
             position: absolute;
             color: black;
-            display: flex;
+            display: none;
             flex-direction: column;
             right: 10px;
             background-color: white;
@@ -37,12 +37,12 @@ template.innerHTML = `
             opacity: 0;
             transition: transform 0.3s ease, opacity 0.3s ease;
         }
-
+        
         .sort-item.active {
+            display:flex;
             transform: translateY(0);
             opacity: 1;
         }
-
 
         ::slotted([slot=sort-mode]){
             display:flex;
@@ -50,15 +50,18 @@ template.innerHTML = `
         }
 
     </style>
-    <button class="sort-btn">
-        <i class="bi bi-funnel-fill"></i>
-    </button>
-    <div class="sort-item">
-        <slot name="sort-mode"></slot>
-    </div>
+        <div class='sort-container'>
+            <button class="sort-btn">
+                <i class="bi bi-funnel-fill"></i>
+            </button>
+            <div class="sort-item">
+                <slot name="sort-mode"></slot>
+            </div>
+        </div>
 `
 
 export class SortButton extends HTMLElement {
+
     constructor() {
         super()
         this.attachShadow({ mode: "open" })
@@ -76,8 +79,13 @@ export class SortButton extends HTMLElement {
 
     runSortBtnEvent() {
         this.shadowRoot.addEventListener('click', () => {
-            this.shadowRoot.querySelector('.sort-item').classList.toggle('active')
-        })
-    }
+            this.shadowRoot.querySelector('.sort-item').classList.toggle('active');
+        });
 
+        this.shadowRoot.addEventListener('focusout', () => {
+            setTimeout(() => {
+                this.shadowRoot.querySelector('.sort-item').classList.remove('active')
+            }, 50);
+        });
+    }
 }
