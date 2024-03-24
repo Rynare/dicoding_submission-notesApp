@@ -30,6 +30,7 @@ export class NoteDetail extends HTMLElement {
         this.render()
         this.runBackEvent()
         this.runSubmitFormEvent()
+        this.runTitleInputEvent()
     }
 
 
@@ -68,18 +69,32 @@ export class NoteDetail extends HTMLElement {
         })
     }
 
+    runTitleInputEvent() {
+        const title = this.querySelector('#detail-title')
+
+        title.addEventListener('input', () => {
+            if (title.value.trim().length <= 0) {
+                title.setCustomValidity('Tidak boleh kosong')
+            } else {
+                title.setCustomValidity('')
+            }
+        })
+    }
+
     runSubmitFormEvent() {
         const form = this.querySelector('form')
         const submitBtn = this.querySelector('#save-btn')
         form.addEventListener('submit', (event) => {
             event.preventDefault()
+            console.log(this.getAttribute('note-id'))
             const formData = new FormData(form, submitBtn)
             const data = {};
             formData.forEach((value, key) => {
                 data[key] = value;
             });
-            if (this.getAttribute('note-id') == 'new') {
-                addNote(data)
+            if (this.getAttribute('note-id') == 'new' || this.getAttribute('note-id') == '' || this.getAttribute('note-id') == null) {
+                const new_note = addNote(data)
+                this.setAttribute('note-id', new_note.id)
             } else {
                 updateNoteById(this.getAttribute('note-id'), data)
             }
