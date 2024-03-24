@@ -24,6 +24,10 @@ export class NoteHeader extends HTMLElement {
         <i class="bi bi-journal-bookmark-fill"></i>
         <span>Baru</span>
         `;
+
+        btn.addEventListener('click', () => {
+            document.querySelector('note-detail').setAttribute('note-id', 'new')
+        })
         return btn
     }
 }

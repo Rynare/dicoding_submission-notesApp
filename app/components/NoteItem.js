@@ -1,4 +1,4 @@
-import { findNoteById } from '../../notes-data.js'
+import { findNoteById, formatDate } from '../../notes-data.js'
 
 const template = document.createElement('template')
 template.innerHTML = `
@@ -30,7 +30,7 @@ export class NoteItem extends HTMLElement {
 
         note_title.innerText = data.title
         note_body.innerText = data.body
-        note_createAt.innerText = data.createdAt
+        note_createAt.innerText = formatDate(data.createdAt).replace('pukul', ' | ')
 
         this.appendChild(newTemplate);
     }

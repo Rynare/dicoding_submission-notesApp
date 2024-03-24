@@ -1,17 +1,19 @@
-import { findNoteById } from '../../notes-data.js'
+import { addNote, findNoteById, getSortedByCreateAtAsc, updateNoteById } from '../../notes-data.js'
 
 const template = document.createElement('template')
 template.innerHTML = `
-<header>
-    <i class="bi bi-arrow-left back-btn"></i>
-    <div>
-        <i class="bi bi-floppy-fill"></i>
+<form>
+    <header>
+        <i class="bi bi-arrow-left back-btn"></i>
+        <div>
+            <button type="submit" id="save-btn"><i class="bi bi-floppy-fill"></i></button>
+        </div>
+    </header>
+    <div id="detail-container">
+        <input id="detail-title" required placeholder="Judul" name="title">
+        <textarea id="detail-body" placeholder="Isi Catatan" name="body"></textarea>
     </div>
-</header>
-<div id="detail-container">
-    <input id="detail-title">
-    <textarea id="detail-body"></textarea>
-</div>
+</form>
 `
 
 export class NoteDetail extends HTMLElement {
@@ -27,6 +29,7 @@ export class NoteDetail extends HTMLElement {
     connectedCallback() {
         this.render()
         this.runBackEvent()
+        this.runSubmitFormEvent()
     }
 
 
@@ -60,7 +63,26 @@ export class NoteDetail extends HTMLElement {
         const backBtn = this.querySelector('.back-btn')
         backBtn.addEventListener('click', () => {
             this.setAttribute('note-id', '')
+            document.querySelector('note-list').setAttribute('refresh', true)
             this.style.zIndex = -9999
+        })
+    }
+
+    runSubmitFormEvent() {
+        const form = this.querySelector('form')
+        const submitBtn = this.querySelector('#save-btn')
+        form.addEventListener('submit', (event) => {
+            event.preventDefault()
+            const formData = new FormData(form, submitBtn)
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+            if (this.getAttribute('note-id') == 'new') {
+                addNote(data)
+            } else {
+                updateNoteById(this.getAttribute('note-id'), data)
+            }
         })
     }
 }

@@ -106,6 +106,39 @@ export const notesData = [
     },
 ];
 
+export function formatDate(createdAt) {
+    const date = new Date(createdAt);
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+    return date.toLocaleDateString('id-ID', options);
+}
+
 export function findNoteById(id) {
     return notesData.find(note => note.id === id);
+}
+
+export function updateNoteById(id, updatedData) {
+    const index = notesData.findIndex(note => note.id === id);
+    if (index !== -1) {
+        notesData[index] = { ...notesData[index], ...updatedData };
+        return true;
+    }
+    return false;
+}
+
+export function addNote(newNote) {
+    const id = `notes-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
+    const note = {
+        id,
+        ...newNote,
+        createdAt: new Date().toISOString(),
+        archived: false,
+    };
+    notesData.push(note);
+
+    return note;
+}
+
+export function getSortedByCreateAtAsc() {
+    const sorted = [...notesData]
+    return sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 }

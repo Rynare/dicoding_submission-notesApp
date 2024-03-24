@@ -14,6 +14,11 @@
 
 * {
     box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+}
+
+i.bi {
+    font-size: 18px;
 }
 
 html,
@@ -21,7 +26,6 @@ body {
     max-width: 100vw;
     margin: 0;
     padding: 0;
-    font-family: "Roboto", sans-serif;
     background-color: var(---bg-body-light);
 }
 
@@ -123,11 +127,10 @@ note-detail {
     background-color: #fff;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
 }
 
-note-detail>div {
-    margin: 10px;
+note-detail form {
+    height: 100%;
 }
 
 note-detail header {
@@ -135,8 +138,15 @@ note-detail header {
     display: flex;
     align-items: center;
     padding: 0 20px;
-    color: var(---bg-header-light);
     justify-content: space-between;
+    color: var(---bg-header-light);
+}
+
+note-detail header button {
+    color: var(---bg-header-light);
+    outline: none;
+    border: none;
+    background-color: transparent;
 }
 
 note-detail input {
@@ -151,8 +161,9 @@ note-detail #detail-container {
     display: flex;
     flex-direction: column;
     row-gap: 10px;
-    flex-grow: 1;
-    padding: 0 10px;
+    padding: 0 20px;
+    height: 100%;
+    padding-bottom: 20px;
 }
 
 note-detail textarea {
