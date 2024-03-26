@@ -85,7 +85,7 @@ export class SortButton extends HTMLElement {
         this.shadowRoot.addEventListener('focusout', () => {
             setTimeout(() => {
                 this.shadowRoot.querySelector('.sort-item').classList.remove('active')
-            }, 50);
+            }, 100);
         });
     }
 }
