@@ -21,10 +21,9 @@ template.innerHTML = `
             position:relative;
         }
 
-        .sort-item {
+        .sort-menu {
             position: absolute;
             color: black;
-            display: none;
             flex-direction: column;
             right: 10px;
             background-color: white;
@@ -36,10 +35,12 @@ template.innerHTML = `
             transform: translateY(-10px);
             opacity: 0;
             transition: transform 0.3s ease, opacity 0.3s ease;
+            display:flex;
+            visibility: hidden;
         }
         
-        .sort-item.active {
-            display:flex;
+        .sort-menu.active {
+            visibility: visible;
             transform: translateY(0);
             opacity: 1;
         }
@@ -54,7 +55,7 @@ template.innerHTML = `
             <button class="sort-btn">
                 <i class="bi bi-funnel-fill"></i>
             </button>
-            <div class="sort-item">
+            <div class="sort-menu">
                 <slot name="sort-mode"></slot>
             </div>
         </div>
@@ -78,14 +79,20 @@ export class SortButton extends HTMLElement {
     }
 
     runSortBtnEvent() {
-        this.shadowRoot.addEventListener('click', () => {
-            this.shadowRoot.querySelector('.sort-item').classList.toggle('active');
+        this.shadowRoot.querySelector('.sort-btn').addEventListener('click', (event) => {
+            this.shadowRoot.querySelector('.sort-menu').classList.toggle('active')
         });
 
-        this.shadowRoot.addEventListener('focusout', () => {
-            setTimeout(() => {
-                this.shadowRoot.querySelector('.sort-item').classList.remove('active')
-            }, 100);
+        this.shadowRoot.addEventListener('sort-changed', () => {
+            this.shadowRoot.querySelector('.sort-menu').classList.remove('active')
         });
+
+        this.shadowRoot.addEventListener('focusout', (event) => {
+            event.preventDefault()
+            setTimeout(() => {
+                this.shadowRoot.querySelector('.sort-menu').classList.remove('active');
+            }, 300);
+        });
+
     }
 }
